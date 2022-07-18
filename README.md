@@ -1,16 +1,16 @@
 # mTracker Version
- **Version**        : 0.1.3 <br>
- **Release Date**   : 16-Jul-22 <br>
+ **Version**        : v0.1.4 <br>
+ **Release Date**   : 18-Jul-22 <br>
 
 #### What is mTracker ?
-mTrack is small script to track user Activities on linux system. We can monitor all user what commands they are executing on linux system.
+mTracker is small script to track user Activities on linux system. We can monitor all user what commands they are executing on linux system.
 
 #### How To Install/Setup mTrack Script on ubuntu.
 We can install this script script on any of debian system.
 
 ##### Step 1: Install Script.
 ```bash
-# Download Agent97
+# Download mtracker
 curl -sL https://github.com/HarryTheDevOpsGuy/mTracker/raw/master/x86_64/mtracker -o /usr/bin/mtracker
 chmod +x /usr/bin/mtracker
 
@@ -28,7 +28,7 @@ mtracker -c '#mcloud-alerts' -t 'xoxb-slack_token'
 
 ##### Step 2: Update SLACK_CLI_TOKEN and SLACK_CHANNEL To get notification on Slack Channel Group.
 
-Edit `/etc/profile.d/mTrack.sh` file and update SLACK_CLI_TOKEN and SLACK_CHANNEL variable.
+Edit `/etc/profile.d/mTracker.sh` file and update SLACK_CLI_TOKEN and SLACK_CHANNEL variable.
 
 ```bash
 #sudo vim /etc/profile.d/mTracker.sh
