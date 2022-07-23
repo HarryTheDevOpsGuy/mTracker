@@ -13,8 +13,10 @@ We can install this script script on any of debian system.
 # Download mtracker
 curl -sL https://github.com/HarryTheDevOpsGuy/mTracker/raw/master/x86_64/mtracker -o /usr/bin/mtracker
 chmod +x /usr/bin/mtracker
-
 mtracker -v
+
+# To Monitor User activity run below command
+curl -sL https://raw.githubusercontent.com/HarryTheDevOpsGuy/mTracker/master/mtracker.sh -o /etc/profile.d/mTracker.sh
 
 # To send notification using slack token and slack channel.
 mtracker -c '#mcloud-alerts' -t 'xoxb-slack_token'
