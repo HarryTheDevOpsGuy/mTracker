@@ -1,0 +1,1 @@
+### Inventory and static files.
