@@ -40,3 +40,7 @@ export HISTTIMEFORMAT="%F %T - "
 mtracker
 ```
 Create Slack Bot for your Applications : https://slack.com/intl/en-in/help/articles/115005265703-Create-a-bot-for-your-workspace
+
+
+##### Sample alert notification on slack channel
+![Alt text](https://github.com/HarryTheDevOpsGuy/mTracker/raw/master/src/Alert-sample.png)
