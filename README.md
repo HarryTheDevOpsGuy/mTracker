@@ -1,5 +1,5 @@
 # mTracker Version
- **Version**        : v0.2.1 <br>
+ **Version**        : v0.2.2 <br>
  **Release Date**   : 25-Jul-22 <br>
 
 #### What is mTracker ?
@@ -94,6 +94,6 @@ We can monitor realtime disk,CPU and memory Utilization. it will notify you on s
 **Note :**  **If you like this tool Please support us and share this with your friends/others.**
 
 #### About us
-* **Utility Name** : [mSend](https://github.com/HarryTheDevOpsGuy/mTracker)
+* **Utility Name** : [mTracker](https://github.com/HarryTheDevOpsGuy/mTracker)
 * **Developed by** : [Harry](https://harrythedevopsguy.github.io)
 * **Email** : HarryTheDevOpsGuy@gmail.com
