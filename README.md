@@ -1,5 +1,5 @@
 # mTracker Version
- **Version**        : v0.2.2 <br>
+ **Version**        : v0.2.3 <br>
  **Release Date**   : 29-Jul-22 <br>
 
 #### What is mTracker ?
@@ -39,7 +39,6 @@ if you want want to pass slack token runtime you can set/export below variables
 ```bash
 export SLACK_CHANNEL="#devops"
 export SLACK_CLI_TOKEN="xoxb-your-slack-token}"
-export HISTTIMEFORMAT="%F %T - "
 mtracker
 ```
 
@@ -47,19 +46,18 @@ mtracker
 ### How to Track User activity?
 it allow you to monitor user activity and notify you on slack channel.
 
-1. Create config file in `/etc/profile.d/mtracker.sh`
-    ```
-    #sudo vim /etc/profile.d/mtracker.sh
-    export SLACK_CLI_TOKEN='xoxb-xxxxxxxxxxx-xxxxxxxxx-xxxxxxxxxxxxxxxxx'
-    export SLACK_CHANNEL="#devops"
-    export HISTTIMEFORMAT="%F %T - "
-    mtracker
-    ```
-2. Now logout and login again to test. if you configured above configs properly. you will get alert as below.
+1. Download config file in
+```bash
+  curl -sL https://raw.githubusercontent.com/HarryTheDevOpsGuy/mTracker/master/mtracker.sh -o /etc/profile.d/mTracker.sh
+```
+
+2. you can edit your config and variables accordingly -> `/etc/profile.d/mtracker.sh`
+
+3. Now logout and login again to test. if you configured above configs properly. you will get alert as below.
 
     ![Alt text](https://github.com/HarryTheDevOpsGuy/mTracker/raw/master/src/Alert-sample.png)
 
-3. Done!! if any user will login and run any linux command it will notify you on slack channel.
+4. Done!! if any user will login and run any linux command it will notify you on slack channel.
 
 
 ### How to configure to monitor CPU,Memory and Disk usage?
