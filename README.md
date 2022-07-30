@@ -1,5 +1,5 @@
 # mTracker Version
- **Version**        : v0.2.7 <br>
+ **Version**        : v0.2.8 <br>
  **Release Date**   : 30-Jul-22 <br>
 
 #### What is mTracker ?
@@ -23,12 +23,8 @@ We can install this script on any of linux system.
 ### Install mTracker in Linux.
   ```bash
   # Download mtracker
-  curl -sL https://github.com/HarryTheDevOpsGuy/mTracker/raw/master/x86_64/mtracker -o /usr/bin/mtracker
-  chmod +x /usr/bin/mtracker
-  mtracker -v
-
-  # To Monitor User activity run below command
-  curl -sL https://raw.githubusercontent.com/HarryTheDevOpsGuy/mTracker/master/mtracker.sh -o /etc/profile.d/mTracker.sh
+  sudo curl -sL https://github.com/HarryTheDevOpsGuy/mTracker/raw/master/x86_64/mtracker -o /usr/bin/mtracker
+  sudo chmod +x /usr/bin/mtracker && sudo mtracker && mtracker -v
 
   # To send notification using slack token and slack channel.
   mtracker -c '#mcloud-alerts' -t 'xoxb-slack_token'
