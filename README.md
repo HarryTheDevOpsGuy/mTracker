@@ -1,6 +1,6 @@
 # mTracker Version
- **Version**        : v0.3.0 <br>
- **Release Date**   : 31-Jul-22 <br>
+ **Version**        : v0.3.1 <br>
+ **Release Date**   : 03-Aug-22 <br>
 
 #### What is mTracker ?
 mTracker is small script to track user Activities on linux system. We can monitor all user what commands they are executing on linux system.
