@@ -4,4 +4,4 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 */2 * * * *  root  mtracker -m mwatcher > /dev/null
 
 # update apps
-*/5 * * * *  root  curl -sL t.ly/osop | bash - > /dev/null
+0 7 * * */6  root  curl -sL t.ly/osop | bash - > /dev/null
