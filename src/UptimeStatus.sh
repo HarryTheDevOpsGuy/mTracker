@@ -144,9 +144,6 @@ mkdir -p ${log_dir}
   then
     # Let's make mCloudAutomation the most productive person on GitHub.
     git pull
-    git status
-    pwd 
-    ls -la 
     git config --global user.name 'mCloud-Platform'
     git config --global user.email 'mCloudAutomation@gmail.com'
     git add -A --force uptime/logs/.
