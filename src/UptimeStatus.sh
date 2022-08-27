@@ -54,7 +54,7 @@ urlsConfig="${CODE_BASE_DIR}/urls.cfg"
 echo "Reading $urlsConfig"
 while read -r line
 do
-  echo "  $line"
+  #echo "  $line"
   IFS='=' read -ra TOKENS <<< "$line"
   KEYSARRAY+=(${TOKENS[0]})
   URLSARRAY+=(${TOKENS[1]})
@@ -68,7 +68,7 @@ mkdir -p logs
   do
     key="${KEYSARRAY[index]}"
     url="${URLSARRAY[index]}"
-    echo "  $key=$url"
+    #echo "  $key=$url"
 
     for i in 1 2 3 4;
     do
@@ -90,9 +90,10 @@ mkdir -p logs
     then
         olddate=$(tail -1 ${log_dir}/${key}_report.log |cut -d ',' -f1|sed 's/^\s*//')
         lastResult=$(tail -1 ${log_dir}/${key}_report.log |cut -d ',' -f2|sed 's/^\s*//')
+        echo "${key} -> ${result} -> ${response}"
         if [[ ${lastResult} != ${result} ]]; then
             echo $dateTime, $result >> "${log_dir}/${key}_report.log"
-            # By default we keep 2000 last log entries.  Feel free to modify this to meet your needs.
+            # By default we keep 200 last log entries.  Feel free to modify this to meet your needs.
             echo "$(tail -${keepLogLines} ${log_dir}/${key}_report.log)" > "${log_dir}/${key}_report.log"
         fi
         
