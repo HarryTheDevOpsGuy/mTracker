@@ -125,6 +125,7 @@ mkdir -p logs
 
             echo "$dateTime, $result -->" "$(pwd)" - "${log_dir}/${key}_report.log"
             echo $dateTime, $result >> "${log_dir}/${key}_report.log"
+            tail -3 ${log_dir}/${key}_report.log
             # By default we keep 200 last log entries.  Feel free to modify this to meet your needs.
             echo "$(tail -${keepLogLines} ${log_dir}/${key}_report.log)" > "${log_dir}/${key}_report.log"
 
@@ -144,9 +145,10 @@ mkdir -p logs
     # Let's make mCloudAutomation the most productive person on GitHub.
     git pull
     git status
+    ls -la 
     git config --global user.name 'mCloud-Platform'
     git config --global user.email 'mCloudAutomation@gmail.com'
-    git add -A --force logs/*
+    git add -A --force logs/
     git commit -am '[Automated] Update Health Check Logs'
     git push
   fi
