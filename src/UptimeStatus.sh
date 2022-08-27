@@ -88,6 +88,7 @@ mkdir -p logs
     dateTime=$(date +'%Y-%m-%d %H:%M')
     if [[ $commit == true ]]
     then
+        touch ${log_dir}/${key}_report.log
         olddate=$(tail -1 ${log_dir}/${key}_report.log |cut -d ',' -f1|sed 's/^\s*//')
         lastResult=$(tail -1 ${log_dir}/${key}_report.log |cut -d ',' -f2|sed 's/^\s*//')
         echo "${key} -> ${result} -> ${response}"
@@ -120,7 +121,7 @@ mkdir -p logs
                 echo "${url} - Up and running - ${response} | ${respontime} Seconds"
             fi
 
-            
+
             echo $dateTime, $result >> "${log_dir}/${key}_report.log"
             # By default we keep 200 last log entries.  Feel free to modify this to meet your needs.
             echo "$(tail -${keepLogLines} ${log_dir}/${key}_report.log)" > "${log_dir}/${key}_report.log"
