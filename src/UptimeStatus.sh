@@ -2,7 +2,7 @@
 # without committing. This avoids generating several commits that would make
 # later upstream merges messy for anyone who forked us.
 
-CODE_BASE_DIR="${PWD}"
+CODE_BASE_DIR="${CODE_BASE_DIR:-$PWD}"
 log_dir="${CODE_BASE_DIR}/logs"
 keepLogLines="${2:-1000}"
 commit=true
