@@ -92,7 +92,7 @@ mkdir -p logs
         touch ${log_dir}/${key}_report.log
         olddate=$(tail -1 ${log_dir}/${key}_report.log |cut -d ',' -f1|sed 's/^\s*//')
         lastResult=$(tail -1 ${log_dir}/${key}_report.log |cut -d ',' -f2|sed 's/^\s*//')
-        echo "${key} -> ${result} -> ${response}"
+        
         # if [[ ${lastResult} != ${result} ]]; then
         #     echo $dateTime, $result >> "${log_dir}/${key}_report.log"
         #     # By default we keep 200 last log entries.  Feel free to modify this to meet your needs.
@@ -102,7 +102,7 @@ mkdir -p logs
 
         ################# Slack Notification Rules.##############
         minDiff=$(datediff "${dateTime}" "${olddate}" "minutes")
-        echo "CHECK::::${minDiff} > ${REPEAT_ALERT} || ${lastResult} != ${result}"
+        echo "${key} -> ${result} -> ${response} | Update condition: ${minDiff} > ${REPEAT_ALERT} || ${lastResult} != ${result}"
         if [[ ${minDiff} > ${REPEAT_ALERT} || ${lastResult} != ${result} ]]; then
             if [[ ${lastResult} == 'failed' && ${minDiff} > ${REPEAT_ALERT} ]]; then
                 SLACK_TITLE="Critical | ${url} is Still Unreachable for ${minDiff} minutes"
