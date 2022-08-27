@@ -5,6 +5,7 @@
 CODE_BASE_DIR="${PWD}/uptime"
 log_dir="${CODE_BASE_DIR}/logs"
 keepLogLines="${2:-200}"
+REPEAT_ALERT="${REPEAT_ALERT:-180}"
 commit=true
 # origin=$(git remote get-url origin)
 # if [[ $origin == *statsig-io/statuspage* ]]
@@ -103,7 +104,7 @@ mkdir -p logs
         minDiff=$(datediff "${dateTime}" "${olddate}" "minutes")
         echo "CHECK::::${minDiff} > ${REPEAT_ALERT} || ${lastResult} != ${result}"
         if [[ ${minDiff} > ${REPEAT_ALERT} || ${lastResult} != ${result} ]]; then
-            if [[ ${lastResult} == 'failed' && ${minDiff} > ${REPEAT_ALERT:-180} ]]; then
+            if [[ ${lastResult} == 'failed' && ${minDiff} > ${REPEAT_ALERT} ]]; then
                 SLACK_TITLE="Critical | ${url} is Still Unreachable for ${minDiff} minutes"
                 SLACK_MSG="*URL* : \`${url}\` \n *Status* : \`${url} is unreachable\` \n *Response Time* : \`${respontime} Seconds\` \n *Alert Severity* : \`Critical\` \n *Status Code* : \`${response}\`  \n *Down at* : \`${olddate}\`. \n *Down since* :  \`${minDiff}\` minutes."
                 COLOR='danger'
