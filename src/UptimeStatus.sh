@@ -100,6 +100,7 @@ mkdir -p logs
         
 
         ################# Slack Notification Rules.##############
+        echo "CHECK::::${minDiff} > ${REPEAT_ALERT} || ${lastResult} != ${result}"
         minDiff=$(datediff "${dateTime}" "${olddate}" "minutes")
         if [[ ${minDiff} > ${REPEAT_ALERT} || ${lastResult} != ${result} ]]; then
             if [[ ${lastResult} == 'failed' && ${minDiff} > ${REPEAT_ALERT:-180} ]]; then
