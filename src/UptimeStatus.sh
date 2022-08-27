@@ -102,9 +102,9 @@ mkdir -p logs
 
         ################# Slack Notification Rules.##############
         minDiff=$(datediff "${dateTime}" "${olddate}" "minutes")
-        echo "${key} -> ${result} -> ${response} | Update condition: ${minDiff} > ${REPEAT_ALERT} || ${lastResult} != ${result}"
-        if [[ ${minDiff} > ${REPEAT_ALERT} || ${lastResult} != ${result} ]]; then
-            if [[ ${lastResult} == 'failed' && ${minDiff} > ${REPEAT_ALERT} ]]; then
+        echo "${key} -> ${result} -> ${response} | Update condition: ${minDiff} > ${REPEAT_ALERT} || ${lastResult:-success} != ${result}"
+        if [[ ${minDiff} > ${REPEAT_ALERT} || ${lastResult:-success} != ${result} ]]; then
+            if [[ ${lastResult:-success} == 'failed' && ${minDiff} > ${REPEAT_ALERT} ]]; then
                 SLACK_TITLE="Critical | ${url} is Still Unreachable for ${minDiff} minutes"
                 SLACK_MSG="*URL* : \`${url}\` \n *Status* : \`${url} is unreachable\` \n *Response Time* : \`${respontime} Seconds\` \n *Alert Severity* : \`Critical\` \n *Status Code* : \`${response}\`  \n *Down at* : \`${olddate}\`. \n *Down since* :  \`${minDiff}\` minutes."
                 COLOR='danger'
