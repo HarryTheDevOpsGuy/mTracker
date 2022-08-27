@@ -86,19 +86,13 @@ mkdir -p ${log_dir}
       fi
       sleep 5
     done
-    dateTime=$(date +'%Y-%m-%d %H:%M')
+    #dateTime=$(date +'%Y-%m-%d %H:%M')
+    dateTime=$(date +'%F %T')
     if [[ $commit == true ]]
     then
         touch ${log_dir}/${key}_report.log
         olddate=$(tail -1 ${log_dir}/${key}_report.log |cut -d ',' -f1|sed 's/^\s*//')
         lastResult=$(tail -1 ${log_dir}/${key}_report.log |cut -d ',' -f2|sed 's/^\s*//')
-        
-        # if [[ ${lastResult} != ${result} ]]; then
-        #     echo $dateTime, $result >> "${log_dir}/${key}_report.log"
-        #     # By default we keep 200 last log entries.  Feel free to modify this to meet your needs.
-        #     echo "$(tail -${keepLogLines} ${log_dir}/${key}_report.log)" > "${log_dir}/${key}_report.log"
-        # fi
-        
 
         ################# Slack Notification Rules.##############
         minDiff=$(datediff "${dateTime}" "${olddate}" "minutes")
@@ -123,9 +117,7 @@ mkdir -p ${log_dir}
                 echo "${url} - Up and running - ${response} | ${respontime} Seconds"
             fi
 
-            echo "$dateTime, $result -->" "$(pwd)" - "${log_dir}/${key}_report.log"
-            echo $dateTime, $result >> "${log_dir}/${key}_report.log"
-            tail -3 ${log_dir}/${key}_report.log
+            echo $dateTime, $result >> "${log_dir}/${key}_report.log"        
             # By default we keep 200 last log entries.  Feel free to modify this to meet your needs.
             echo "$(tail -${keepLogLines} ${log_dir}/${key}_report.log)" > "${log_dir}/${key}_report.log"
 
