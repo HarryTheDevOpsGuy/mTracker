@@ -64,7 +64,7 @@ done < "$urlsConfig"
 echo "***********************"
 echo "Starting health checks with ${#KEYSARRAY[@]} configs:"
 
-mkdir -p logs
+mkdir -p ${log_dir}
   for (( index=0; index < ${#KEYSARRAY[@]}; index++))
   do
     key="${KEYSARRAY[index]}"
