@@ -149,7 +149,7 @@ mkdir -p ${log_dir}
     ls -la 
     git config --global user.name 'mCloud-Platform'
     git config --global user.email 'mCloudAutomation@gmail.com'
-    git add -A --force uptime/logs/
+    git add -A --force uptime/logs/.t
     git commit -am '[Automated] Update Health Check Logs'
     git push
   fi
