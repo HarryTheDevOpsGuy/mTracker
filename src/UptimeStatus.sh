@@ -108,17 +108,17 @@ mkdir -p logs
                 SLACK_TITLE="Critical | ${url} is Still Unreachable for ${minDiff} minutes"
                 SLACK_MSG="*URL* : \`${url}\` \n *Status* : \`${url} is unreachable\` \n *Response Time* : \`${respontime} Seconds\` \n *Alert Severity* : \`Critical\` \n *Status Code* : \`${response}\`  \n *Down at* : \`${olddate}\`. \n *Down since* :  \`${minDiff}\` minutes."
                 COLOR='danger'
-                echo mslack chat send --title "${SLACK_TITLE}" --text "${SLACK_MSG}" --channel "${SLACK_CHANNEL}" --color ${COLOR} #> /dev/null 2>&1
+                mslack chat send --title "${SLACK_TITLE}" --text "${SLACK_MSG}" --channel "${SLACK_CHANNEL}" --color ${COLOR} #> /dev/null 2>&1
             elif [[ ${result} == 'failed' ]]; then
                 SLACK_TITLE="Critical | ${url} is Unreachable - ${response}"
                 SLACK_MSG="*URL* : \`${url}\` \n *Status* : \`${url} is unreachable\` \n *Response Time* : \`${respontime} Seconds\` \n *Alert Severity* : \`Critical\` \n *Status Code* : \`${response}\`  \n *Down at* : \`${dateTime}\`."
                 COLOR='danger'
-                echo mslack chat send --title "${SLACK_TITLE}" --text "${SLACK_MSG}" --channel "${SLACK_CHANNEL}" --color ${COLOR} #> /dev/null 2>&1
+                mslack chat send --title "${SLACK_TITLE}" --text "${SLACK_MSG}" --channel "${SLACK_CHANNEL}" --color ${COLOR} #> /dev/null 2>&1
             elif [[ ${result} == 'success' ]]; then
                 SLACK_TITLE="Resolved | ${url} is working now - ${response} | ${respontime} Seconds"
                 SLACK_MSG="*URL* : \`${url}\` \n *Status* : \`${url} is up and running\` \n *Response Time* : \`${respontime} Seconds\` \n *Alert Severity* : \`Critical\` \n *Status Code* : \`${response}\`  \n *Down at* : \`${dateTime}\`. \n *Total Downtime* :  \`${minDiff}\` minutes."
                 COLOR='good'
-                echo mslack chat send --title "${SLACK_TITLE}" --text "${SLACK_MSG}" --channel "${SLACK_CHANNEL}" --color ${COLOR} #> /dev/null 2>&1
+                mslack chat send --title "${SLACK_TITLE}" --text "${SLACK_MSG}" --channel "${SLACK_CHANNEL}" --color ${COLOR} #> /dev/null 2>&1
             else 
                 echo "${url} - Up and running - ${response} | ${respontime} Seconds"
             fi
