@@ -120,6 +120,7 @@ mkdir -p logs
                 echo "${url} - Up and running - ${response} | ${respontime} Seconds"
             fi
         fi
+        echo "${lastResult}:${result}: ${SLACK_TITLE}"
         ################# Slack Notification Rules.##############
 
     else
