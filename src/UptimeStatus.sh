@@ -102,7 +102,7 @@ mkdir -p logs
 
         ################# Slack Notification Rules.##############
         minDiff=$(datediff "${dateTime}" "${olddate}" "minutes")
-        echo "${key} -> ${result} -> ${response} | Update condition: ${minDiff} > ${REPEAT_ALERT} ||:${lastResult:-success}!=${result}:"
+        echo "${key} -> ${result} -> ${response} | Update condition: ${minDiff} -gt ${REPEAT_ALERT} ||:${lastResult:-success}!=${result}:"
         if [[ ${minDiff} -gt ${REPEAT_ALERT} || ${lastResult:-success} != ${result} ]]; then
             if [[ ${lastResult:-success} == 'failed' && ${minDiff} > ${REPEAT_ALERT} ]]; then
                 SLACK_TITLE="Critical | ${url} is Still Unreachable for ${minDiff} minutes"
