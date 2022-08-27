@@ -123,7 +123,7 @@ mkdir -p logs
                 echo "${url} - Up and running - ${response} | ${respontime} Seconds"
             fi
 
-
+            echo "$dateTime, $result -->" "${log_dir}/${key}_report.log"
             echo $dateTime, $result >> "${log_dir}/${key}_report.log"
             # By default we keep 200 last log entries.  Feel free to modify this to meet your needs.
             echo "$(tail -${keepLogLines} ${log_dir}/${key}_report.log)" > "${log_dir}/${key}_report.log"
