@@ -91,7 +91,7 @@ mkdir -p logs
         olddate=$(tail -1 ${log_dir}/${key}_report.log |cut -d ',' -f1|sed 's/^\s*//')
         lastResult=$(tail -1 ${log_dir}/${key}_report.log |cut -d ',' -f2|sed 's/^\s*//')
         if [[ ${lastResult} != ${result} ]]; then
-            echo $dateTime, $result, $url, $response, ${respontime} >> "${log_dir}/${key}_report.log"
+            echo $dateTime, $result >> "${log_dir}/${key}_report.log"
             # By default we keep 2000 last log entries.  Feel free to modify this to meet your needs.
             echo "$(tail -${keepLogLines} ${log_dir}/${key}_report.log)" > "${log_dir}/${key}_report.log"
         fi
