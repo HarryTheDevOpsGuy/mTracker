@@ -143,9 +143,10 @@ mkdir -p logs
   then
     # Let's make mCloudAutomation the most productive person on GitHub.
     git pull
+    git status
     git config --global user.name 'mCloud-Platform'
     git config --global user.email 'mCloudAutomation@gmail.com'
-    git add -A --force logs/
+    git add -A --force logs/*
     git commit -am '[Automated] Update Health Check Logs'
     git push
   fi
