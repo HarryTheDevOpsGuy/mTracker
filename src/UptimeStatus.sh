@@ -99,13 +99,13 @@ mkdir -p ${log_dir}
         echo "${key} -> ${result} -> ${response} | Update condition: ${minDiff} -gt ${REPEAT_ALERT} ||:${lastResult:-success}!=${result}:"
         if [[ ${minDiff} -gt ${REPEAT_ALERT} || ${lastResult:-success} != ${result} ]]; then
             if [[ ${lastResult:-success} == 'failed' && ${minDiff} > ${REPEAT_ALERT} ]]; then
-                SLACK_TITLE="Critical | ${url} is Still Unreachable for ${minDiff} minutes"
-                SLACK_MSG="*URL* : \`${key} -> ${url}\` \n *Status* : \`${url} is unreachable\` \n *Response Time* : \`${respontime} Seconds\` \n *Alert Severity* : \`Critical\` \n *Status Code* : \`${response}\`  \n *Down at* : \`${olddate}\`. \n *Down since* :  \`${minDiff}\` minutes."
+                SLACK_TITLE="Critical | ${url} is Still not accessible for ${minDiff} minutes"
+                SLACK_MSG="*URL* : \`${key} -> ${url}\` \n *Status* : \`${url} is not accessible\` \n *Response Time* : \`${respontime} Seconds\` \n *Alert Severity* : \`Critical\` \n *Status Code* : \`${response}\`  \n *Down at* : \`${olddate}\`. \n *Down since* :  \`${minDiff}\` minutes."
                 COLOR='danger'
                 mslack chat send --title "${SLACK_TITLE}" --text "${SLACK_MSG}" --channel "${SLACK_CHANNEL}" --color ${COLOR} --filter '.attachments[0].title' #> /dev/null 2>&1
             elif [[ ${result} == 'failed' ]]; then
-                SLACK_TITLE="Critical | ${url} is Unreachable - ${response}"
-                SLACK_MSG="*URL* : \`${key} -> ${url}\` \n *Status* : \`${url} is unreachable\` \n *Response Time* : \`${respontime} Seconds\` \n *Alert Severity* : \`Critical\` \n *Status Code* : \`${response}\`  \n *Down at* : \`${dateTime}\`."
+                SLACK_TITLE="Critical | ${url} is not accessible - ${response}"
+                SLACK_MSG="*URL* : \`${key} -> ${url}\` \n *Status* : \`${url} is not accessible\` \n *Response Time* : \`${respontime} Seconds\` \n *Alert Severity* : \`Critical\` \n *Status Code* : \`${response}\`  \n *Down at* : \`${dateTime}\`."
                 COLOR='danger'
                 mslack chat send --title "${SLACK_TITLE}" --text "${SLACK_MSG}" --channel "${SLACK_CHANNEL}" --color ${COLOR} --filter '.attachments[0].title' #> /dev/null 2>&1
             elif [[ ${result} == 'success' ]]; then
