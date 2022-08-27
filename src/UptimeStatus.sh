@@ -38,13 +38,6 @@ datediff() {
     esac
 }
 
-slacknotify(){
-    laststatus="${1}"
-    dateTime
-    olddate=$(tail -1 ${log_dir}/${key}_report.log |cut -d ',' -f1|sed 's/^\s*//')
-
-}
-
 
 ####  Slack Notification  ####
 
