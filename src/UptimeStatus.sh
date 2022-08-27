@@ -91,11 +91,11 @@ mkdir -p logs
         olddate=$(tail -1 ${log_dir}/${key}_report.log |cut -d ',' -f1|sed 's/^\s*//')
         lastResult=$(tail -1 ${log_dir}/${key}_report.log |cut -d ',' -f2|sed 's/^\s*//')
         echo "${key} -> ${result} -> ${response}"
-        if [[ ${lastResult} != ${result} ]]; then
-            echo $dateTime, $result >> "${log_dir}/${key}_report.log"
-            # By default we keep 200 last log entries.  Feel free to modify this to meet your needs.
-            echo "$(tail -${keepLogLines} ${log_dir}/${key}_report.log)" > "${log_dir}/${key}_report.log"
-        fi
+        # if [[ ${lastResult} != ${result} ]]; then
+        #     echo $dateTime, $result >> "${log_dir}/${key}_report.log"
+        #     # By default we keep 200 last log entries.  Feel free to modify this to meet your needs.
+        #     echo "$(tail -${keepLogLines} ${log_dir}/${key}_report.log)" > "${log_dir}/${key}_report.log"
+        # fi
         
 
         ################# Slack Notification Rules.##############
@@ -119,6 +119,12 @@ mkdir -p logs
             else 
                 echo "${url} - Up and running - ${response} | ${respontime} Seconds"
             fi
+
+            
+            echo $dateTime, $result >> "${log_dir}/${key}_report.log"
+            # By default we keep 200 last log entries.  Feel free to modify this to meet your needs.
+            echo "$(tail -${keepLogLines} ${log_dir}/${key}_report.log)" > "${log_dir}/${key}_report.log"
+
         fi
         #echo "${lastResult}:${result}: ${SLACK_TITLE}"
         ################# Slack Notification Rules.##############
