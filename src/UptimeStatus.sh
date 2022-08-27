@@ -106,17 +106,17 @@ mkdir -p ${log_dir}
         if [[ ${minDiff} -gt ${REPEAT_ALERT} || ${lastResult:-success} != ${result} ]]; then
             if [[ ${lastResult:-success} == 'failed' && ${minDiff} > ${REPEAT_ALERT} ]]; then
                 SLACK_TITLE="Critical | ${url} is Still Unreachable for ${minDiff} minutes"
-                SLACK_MSG="*URL* : \`${url}\` \n *Status* : \`${url} is unreachable\` \n *Response Time* : \`${respontime} Seconds\` \n *Alert Severity* : \`Critical\` \n *Status Code* : \`${response}\`  \n *Down at* : \`${olddate}\`. \n *Down since* :  \`${minDiff}\` minutes."
+                SLACK_MSG="*URL* : \`${key} -> ${url}\` \n *Status* : \`${url} is unreachable\` \n *Response Time* : \`${respontime} Seconds\` \n *Alert Severity* : \`Critical\` \n *Status Code* : \`${response}\`  \n *Down at* : \`${olddate}\`. \n *Down since* :  \`${minDiff}\` minutes."
                 COLOR='danger'
                 mslack chat send --title "${SLACK_TITLE}" --text "${SLACK_MSG}" --channel "${SLACK_CHANNEL}" --color ${COLOR} #> /dev/null 2>&1
             elif [[ ${result} == 'failed' ]]; then
                 SLACK_TITLE="Critical | ${url} is Unreachable - ${response}"
-                SLACK_MSG="*URL* : \`${url}\` \n *Status* : \`${url} is unreachable\` \n *Response Time* : \`${respontime} Seconds\` \n *Alert Severity* : \`Critical\` \n *Status Code* : \`${response}\`  \n *Down at* : \`${dateTime}\`."
+                SLACK_MSG="*URL* : \`${key} -> ${url}\` \n *Status* : \`${url} is unreachable\` \n *Response Time* : \`${respontime} Seconds\` \n *Alert Severity* : \`Critical\` \n *Status Code* : \`${response}\`  \n *Down at* : \`${dateTime}\`."
                 COLOR='danger'
                 mslack chat send --title "${SLACK_TITLE}" --text "${SLACK_MSG}" --channel "${SLACK_CHANNEL}" --color ${COLOR} #> /dev/null 2>&1
             elif [[ ${result} == 'success' ]]; then
                 SLACK_TITLE="Resolved | ${url} is working now - ${response} | ${respontime} Seconds"
-                SLACK_MSG="*URL* : \`${url}\` \n *Status* : \`${url} is up and running\` \n *Response Time* : \`${respontime} Seconds\` \n *Alert Severity* : \`Critical\` \n *Status Code* : \`${response}\`  \n *Down at* : \`${dateTime}\`. \n *Total Downtime* :  \`${minDiff}\` minutes."
+                SLACK_MSG="*URL* : \`${key} -> ${url}\` \n *Status* : \`${url} is up and running\` \n *Response Time* : \`${respontime} Seconds\` \n *Alert Severity* : \`Critical\` \n *Status Code* : \`${response}\`  \n *Down at* : \`${dateTime}\`. \n *Total Downtime* :  \`${minDiff}\` minutes."
                 COLOR='good'
                 mslack chat send --title "${SLACK_TITLE}" --text "${SLACK_MSG}" --channel "${SLACK_CHANNEL}" --color ${COLOR} #> /dev/null 2>&1
             else 
