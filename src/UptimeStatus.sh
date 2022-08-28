@@ -100,7 +100,7 @@ mkdir -p ${log_dir}
 
         if [[ ${minDiff} -gt ${REPEAT_ALERT} || ${lastResult} -ne ${result} ]]; then
           if [[ ! -z ${result} && ! -z ${lastResult} ]]; then
-              if [[ (${result} -eq 'failed' && ${lastResult} -eq ${result}) && ${minDiff} -ge ${REPEAT_ALERT} ]]; then
+              if [[ ("${result}" == "failed" && "${lastResult}" == "${result}") && (${minDiff} -ge ${REPEAT_ALERT}) ]]; then
                   SLACK_TITLE="Critical | ${url} is Still not accessible for ${minDiff} minutes"
                   SLACK_MSG="*URL* : \`${key} -> ${url}\` \n *Status* : \`${url} is not accessible\` \n *Response Time* : \`${respontime} Seconds\` \n *Alert Severity* : \`Critical\` \n *Status Code* : \`${response}\`  \n *Down at* : \`${olddate}\`. \n *Down since* :  \`${minDiff}\` minutes."
                   COLOR='danger'
