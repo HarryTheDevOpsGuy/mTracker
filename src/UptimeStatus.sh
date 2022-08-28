@@ -104,17 +104,20 @@ mkdir -p ${log_dir}
                   SLACK_TITLE="Critical | ${url} is Still not accessible for ${minDiff} minutes"
                   SLACK_MSG="*URL* : \`${key} -> ${url}\` \n *Status* : \`${url} is not accessible\` \n *Response Time* : \`${respontime} Seconds\` \n *Alert Severity* : \`Critical\` \n *Status Code* : \`${response}\`  \n *Down at* : \`${olddate}\`. \n *Down since* :  \`${minDiff}\` minutes."
                   COLOR='danger'
+                  echo "RepeatAlert: ${dateTime} - ${key}->${lastResult}->${result}->${response}"
                   mslack chat send --title "${SLACK_TITLE}" --text "${SLACK_MSG}" --channel "${SLACK_CHANNEL}" --color ${COLOR} --filter '.attachments[0].title' #> /dev/null 2>&1
               elif [[ ${result} -eq 'failed' && ${lastResult} -ne 'failed' ]]; then
                   SLACK_TITLE="Critical | ${url} is not accessible - ${response}"
                   SLACK_MSG="*URL* : \`${key} -> ${url}\` \n *Status* : \`${url} is not accessible\` \n *Response Time* : \`${respontime} Seconds\` \n *Alert Severity* : \`Critical\` \n *Status Code* : \`${response}\`  \n *Down at* : \`${dateTime}\`."
                   COLOR='danger'
+                  echo "alert : ${dateTime} - ${key}->${lastResult}->${result}->${response}"
                   mslack chat send --title "${SLACK_TITLE}" --text "${SLACK_MSG}" --channel "${SLACK_CHANNEL}" --color ${COLOR} --filter '.attachments[0].title' #> /dev/null 2>&1
               elif [[ ${result} -eq 'success' && ${lastResult} -ne 'success' ]]; then
                   echo "${result} -eq 'success' and ${lastResult} -ne 'success'"
                   SLACK_TITLE="Resolved | ${url} is working now - ${response} | ${respontime} Seconds"
                   SLACK_MSG="*URL* : \`${key} -> ${url}\` \n *Status* : \`${url} is up and running\` \n *Response Time* : \`${respontime} Seconds\` \n *Alert Severity* : \`Critical\` \n *Status Code* : \`${response}\`  \n *Down at* : \`${dateTime}\`. \n *Total Downtime* :  \`${minDiff}\` minutes."
                   COLOR='good'
+                  echo "ResolvedAlert : ${dateTime} - ${key}->${lastResult}->${result}->${response}"
                   mslack chat send --title "${SLACK_TITLE}" --text "${SLACK_MSG}" --channel "${SLACK_CHANNEL}" --color ${COLOR} --filter '.attachments[0].title' #> /dev/null 2>&1
               else 
                   echo "${url} - Up and running - ${response} | ${respontime} Seconds"
