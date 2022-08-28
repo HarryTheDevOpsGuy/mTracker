@@ -132,7 +132,7 @@ mkdir -p ${log_dir}
     dateTime=$(date +'%F %T')
     if [[ $commit == true ]]
     then
-        touch ${log_dir}/${key}_report.log ${log_dir}/sslcert.log
+        touch ${log_dir}/${key}_report.log ${log_dir}/sslcert.log /tmp/ssl.log
         olddate=$(tail -1 ${log_dir}/${key}_report.log |cut -d ',' -f1|sed 's/^\s*//')
         lastResult=$(tail -1 ${log_dir}/${key}_report.log |cut -d ',' -f2|sed 's/^\s*//')
 
