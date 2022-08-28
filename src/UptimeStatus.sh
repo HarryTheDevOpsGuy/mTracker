@@ -65,7 +65,7 @@ if [[ ${check_ssl} -lt 1 ]]; then
           if [[ ${check_alert} -lt 1 ]]; then
             SLACK_TITLE=":large_orange_circle: Warning | SSL Cert is expiring in ${remain_days} days for ${fqdn}."
             SLACK_MSG="*Domain* : \`${keyname} -> ${fqdn}\` \n *Expiring in * : \`${remain_days} days\` \n *Expired on* : \`${EXP_DATE}\` \n *Cert Issuer* : ${CERT_ISSUER} \n *CNAME* : ${CERT_CNAME}  \n *AltName* : ${CERT_ALTCNAME}"
-            mslack chat send --title "${SLACK_TITLE}" --text "${SLACK_MSG}" --channel "${SLACK_CHANNEL}" --color danger #--filter '.ts + "\n" + .channel'
+            mslack chat send --title "${SLACK_TITLE}" --text "${SLACK_MSG}" --channel "${SLACK_CHANNEL}" --color danger --filter '.ts + "\n" + .channel'
             echo ${today}, ${keyname}:${day} >> "${log_dir}/sslcert.log"        
             # By default we keep 200 last log entries.  Feel free to modify this to meet your needs.
             echo "$(tail -50 ${log_dir}/sslcert.log)" > "${log_dir}/sslcert.log"
