@@ -52,7 +52,7 @@ KEYSARRAY=()
 URLSARRAY=()
 
 urlsConfig="${CODE_BASE_DIR}/urls.cfg"
-echo "Reading $urlsConfig"
+#echo "Reading $urlsConfig"
 while read -r line
 do
   #echo "  $line"
@@ -105,7 +105,7 @@ mkdir -p ${log_dir}
                   SLACK_MSG="*URL* : \`${key} -> ${url}\` \n *Status* : \`${url} is not accessible\` \n *Response Time* : \`${respontime} Seconds\` \n *Alert Severity* : \`Critical\` \n *Status Code* : \`${response}\`  \n *Down at* : \`${olddate}\`. \n *Down since* :  \`${minDiff}\` minutes."
                   COLOR='danger'
                   #echo "CHECK ::: ${result} == failed and ${lastResult} == ${result} and ${minDiff} ge ${REPEAT_ALERT}"
-                  echo "RepeatAlert: ${dateTime} - ${key}->${lastResult}->${result}->${response}->${respontime} Seconds"
+                  echo "RepeatAlert: ${dateTime} - ${key}->${lastResult}->${result}->${response}->${respontime} Seconds  -  [${minDiff}>${REPEAT_ALERT}]"
                   mslack chat send --title "${SLACK_TITLE}" --text "${SLACK_MSG}" --channel "${SLACK_CHANNEL}" --color ${COLOR} --filter '.attachments[0].title' #> /dev/null 2>&1
               elif [[ ${result} -eq 'failed' && ${lastResult} != ${result} ]]; then
                   SLACK_TITLE="Critical | ${url} is not accessible - ${response}"
