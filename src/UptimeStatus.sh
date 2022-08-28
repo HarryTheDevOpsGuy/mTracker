@@ -96,7 +96,7 @@ mkdir -p ${log_dir}
 
         ################# Slack Notification Rules.##############
         minDiff=$(datediff "${dateTime}" "${olddate}" "minutes")
-        echo "${key} -> ${result} -> ${response} | Update condition: ${minDiff} -gt ${REPEAT_ALERT} ||:${lastResult} -ne ${result}:"
+        #echo "${key} -> ${result} -> ${response} | Update condition: ${minDiff} -gt ${REPEAT_ALERT} ||:${lastResult} -ne ${result}:"
 
         if [[ ${minDiff} -gt ${REPEAT_ALERT} || ${lastResult} -ne ${result} ]]; then
           if [[ ! -z ${result} && ! -z ${lastResult} ]]; then
@@ -104,27 +104,32 @@ mkdir -p ${log_dir}
                   SLACK_TITLE="Critical | ${url} is Still not accessible for ${minDiff} minutes"
                   SLACK_MSG="*URL* : \`${key} -> ${url}\` \n *Status* : \`${url} is not accessible\` \n *Response Time* : \`${respontime} Seconds\` \n *Alert Severity* : \`Critical\` \n *Status Code* : \`${response}\`  \n *Down at* : \`${olddate}\`. \n *Down since* :  \`${minDiff}\` minutes."
                   COLOR='danger'
-                  echo "CHECK ::: ${result} == failed and ${lastResult} == ${result} and ${minDiff} ge ${REPEAT_ALERT}"
-                  echo "RepeatAlert: ${dateTime} - ${key}->${lastResult}->${result}->${response}"
+                  #echo "CHECK ::: ${result} == failed and ${lastResult} == ${result} and ${minDiff} ge ${REPEAT_ALERT}"
+                  echo "RepeatAlert: ${dateTime} - ${key}->${lastResult}->${result}->${response}->${respontime} Seconds"
                   mslack chat send --title "${SLACK_TITLE}" --text "${SLACK_MSG}" --channel "${SLACK_CHANNEL}" --color ${COLOR} --filter '.attachments[0].title' #> /dev/null 2>&1
-              elif [[ ${result} -eq 'failed' && ${lastResult} -ne 'failed' ]]; then
+              elif [[ ${result} -eq 'failed' && ${lastResult} != ${result} ]]; then
                   SLACK_TITLE="Critical | ${url} is not accessible - ${response}"
                   SLACK_MSG="*URL* : \`${key} -> ${url}\` \n *Status* : \`${url} is not accessible\` \n *Response Time* : \`${respontime} Seconds\` \n *Alert Severity* : \`Critical\` \n *Status Code* : \`${response}\`  \n *Down at* : \`${dateTime}\`."
                   COLOR='danger'
-                  echo "alert : ${dateTime} - ${key}->${lastResult}->${result}->${response}"
+                  echo "alert : ${dateTime} - ${key}->${lastResult}->${result}->${response}->${respontime} Seconds"
                   mslack chat send --title "${SLACK_TITLE}" --text "${SLACK_MSG}" --channel "${SLACK_CHANNEL}" --color ${COLOR} --filter '.attachments[0].title' #> /dev/null 2>&1
-              elif [[ ${result} -eq 'success' && ${lastResult} -ne 'success' ]]; then
+              elif [[ ${result} == 'success' && ${lastResult} != ${result} ]]; then
                   echo "${result} -eq 'success' and ${lastResult} -ne 'success'"
                   SLACK_TITLE="Resolved | ${url} is working now - ${response} | ${respontime} Seconds"
                   SLACK_MSG="*URL* : \`${key} -> ${url}\` \n *Status* : \`${url} is up and running\` \n *Response Time* : \`${respontime} Seconds\` \n *Alert Severity* : \`Critical\` \n *Status Code* : \`${response}\`  \n *Down at* : \`${dateTime}\`. \n *Total Downtime* :  \`${minDiff}\` minutes."
                   COLOR='good'
-                  echo "ResolvedAlert : ${dateTime} - ${key}->${lastResult}->${result}->${response}"
+                  echo "ResolvedAlert : ${dateTime} - ${key}->${lastResult}->${result}->${response}->${respontime} Seconds"
                   mslack chat send --title "${SLACK_TITLE}" --text "${SLACK_MSG}" --channel "${SLACK_CHANNEL}" --color ${COLOR} --filter '.attachments[0].title' #> /dev/null 2>&1
+
+              elif [[ ${result} == 'success' && ${lastResult} == ${result} ]]; then
+                  echo "OK : ${dateTime} - ${key}->${lastResult}->${result}->${response}->${respontime} Seconds"
               else 
-                  echo "${url} - Up and running - ${response} | ${respontime} Seconds"
+                  echo "SomeThingIsNotHandled : ${dateTime} - ${key}->${lastResult}->${result}->${response} - [${minDiff}:${REPEAT_ALERT}]"
               fi
+
             else 
-            echo "${url} - [${result}:${lastResult}] - ${response} | ${respontime} Seconds"
+            echo "[result->${result}:lastResult->${lastResult} is empty] - ${key}->${response}->${respontime} Seconds"
+            echo "VariableEmpty: ${dateTime} - ${key}->${lastResult:-lastResultEmpty}->${result:-resultEmpty}->${response}->${respontime} Seconds - [${minDiff}:${REPEAT_ALERT}]"
           fi 
             echo $dateTime, $result >> "${log_dir}/${key}_report.log"        
             # By default we keep 200 last log entries.  Feel free to modify this to meet your needs.
