@@ -134,6 +134,8 @@ mkdir -p ${log_dir}
             # By default we keep 200 last log entries.  Feel free to modify this to meet your needs.
             echo "$(tail -${keepLogLines} ${log_dir}/${key}_report.log)" > "${log_dir}/${key}_report.log"
 
+          else 
+          echo "UnhandledConditions: ${dateTime} - ${key}->${lastResult}->${result}->${response}->${respontime} Seconds - [${minDiff}:${REPEAT_ALERT}]"
         fi
 
         ################# Slack Notification Rules.##############
