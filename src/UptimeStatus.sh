@@ -53,7 +53,7 @@ if [[ ${check_ssl} -lt 1 ]]; then
       CERT_CNAME=$(grep "subject:" ${SSLDATA}|awk -F': ' '{print $2}'|sed -e 's/=/=\`/g; s/;/\`;/g; s/$/\`/g;')
       CERT_ALTCNAME=$(grep "subjectAltName:" ${SSLDATA}|awk -F': ' '{print $2}'|sed -e 's/"/\`/g;')
       echo $(date +'%F'):${keyname} >> "/tmp/ssl.log" 
-      echo "checking ssl for ${fqdn}"
+      echo "Checking ssl for ${fqdn}"
 
       ##### Slack Notification for SSL Cert ######
       max_num=$(IFS=$'\n';echo "${ALERT_DAY[*]}" | sort -nr | head -n1)
@@ -65,18 +65,18 @@ if [[ ${check_ssl} -lt 1 ]]; then
           if [[ ${check_alert} -lt 1 ]]; then
             SLACK_TITLE=":large_orange_circle: Warning | SSL Cert is expiring in ${remain_days} days for https://${fqdn}."
             SLACK_MSG="*Domain* : \`${keyname} -> https://${fqdn}\` \n *Expiring in * : \`${remain_days} days\` \n *Expired on* : \`${EXP_DATE}\` \n *Cert Issuer* : ${CERT_ISSUER} \n *CNAME* : ${CERT_CNAME}  \n *AltName* : ${CERT_ALTCNAME}"
-            mslack chat send --title "${SLACK_TITLE}" --text "${SLACK_MSG}" --channel "${SLACK_CHANNEL}" --color danger --filter '.ts + "\t" + .channel "\t" + .ok'
+            mslack chat send --title "${SLACK_TITLE}" --text "${SLACK_MSG}" --channel "${SLACK_CHANNEL}" --color danger --filter '.ts + "\n" + .ok'
             echo ${today}, ${keyname}:${day} >> "${log_dir}/sslcert.log"        
             # By default we keep 200 last log entries.  Feel free to modify this to meet your needs.
             echo "$(tail -50 ${log_dir}/sslcert.log)" > "${log_dir}/sslcert.log"
-            echo ${today} - ${keyname} - SSL expiring in ${remain_days} days 
+            echo "${today} - ${keyname} - SSL expiring in ${remain_days} days" 
           fi 
         fi 
       done
 
     fi
 else 
- echo "Already checked for the $(date +'%F') for ${keyname}. will check tomorrow."
+ echo "SSL Already checked for the $(date +'%F') for ${keyname}. will check tomorrow."
 fi 
 }
 
