@@ -101,7 +101,7 @@ mkdir -p ${log_dir}
         if [[ ${minDiff} -gt ${REPEAT_ALERT} || ${lastResult} -ne ${result} ]]; then
           if [[ ! -z ${result} && ! -z ${lastResult} ]]; then
               if [[ ("${result}" == "failed" && "${lastResult}" == "${result}") && (${minDiff} -ge ${REPEAT_ALERT}) ]]; then
-                  SLACK_TITLE="Critical | ${url} is Still not accessible for ${minDiff} minutes"
+                  SLACK_TITLE=":red_circle: Critical | ${url} is Still not accessible for ${minDiff} minutes"
                   SLACK_MSG="*URL* : \`${key} -> ${url}\` \n *Status* : \`${url} is not accessible\` \n *Response Time* : \`${respontime} Seconds\` \n *Alert Severity* : \`Critical\` \n *Status Code* : \`${response}\`  \n *Down at* : \`${olddate}\`. \n *Down since* :  \`${minDiff}\` minutes."
                   COLOR='danger'
                   #echo "CHECK ::: ${result} == failed and ${lastResult} == ${result} and ${minDiff} ge ${REPEAT_ALERT}"
@@ -115,7 +115,7 @@ mkdir -p ${log_dir}
                   mslack chat send --title "${SLACK_TITLE}" --text "${SLACK_MSG}" --channel "${SLACK_CHANNEL}" --color ${COLOR} --filter '.ts + "\n" + .channel' #> /dev/null 2>&1
               elif [[ ${result} == 'success' && ${lastResult} != ${result} ]]; then
                   echo "${result} -eq 'success' and ${lastResult} -ne 'success'"
-                  SLACK_TITLE="Resolved | ${url} is working now - ${response} | ${respontime} Seconds"
+                  SLACK_TITLE=":large_green_circle: Resolved | ${url} is working now - ${response} | ${respontime} Seconds"
                   SLACK_MSG="*URL* : \`${key} -> ${url}\` \n *Status* : \`${url} is up and running\` \n *Response Time* : \`${respontime} Seconds\` \n *Alert Severity* : \`Critical\` \n *Status Code* : \`${response}\`  \n *Down at* : \`${dateTime}\`. \n *Total Downtime* :  \`${minDiff}\` minutes."
                   COLOR='good'
                   echo "ResolvedAlert : ${dateTime} - ${key}->${lastResult}->${result}->${response}->${respontime} Seconds"
