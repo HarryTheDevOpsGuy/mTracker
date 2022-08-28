@@ -45,14 +45,13 @@ certExpiry(){
   SSLDATA="/tmp/ssldata.log"
   ALERT_DAY=( 40 20 10 5 3 2 1 )
   check_ssl=$(grep -c "$(date +'%F'):${keyname}" /tmp/ssl.log)
-
 if [[ ${check_ssl} -lt 1 ]]; then 
     if [[ ${scheme} == 'https' ]]; then
       curl --cert-status -v https://${fqdn} 2>&1 | awk 'BEGIN { cert=0 } /^\* Server certificate:/ { cert=1 } /^\*/ { if (cert) print }' > ${SSLDATA}
       EXP_DATE=$(grep "expire date:" ${SSLDATA}|awk -F': ' '{print $2}')
-      CERT_ISSUER=$(grep "issuer:" ${SSLDATA}|awk -F': ' '{print $2}')
-      CERT_CNAME=$(grep "subject:" ${SSLDATA}|awk -F': ' '{print $2}'|sed -e 's/=/=\\`/g; s/;/\\`;/g; s/$/\\`/g;')
-      CERT_ALTCNAME=$(grep "subjectAltName:" ${SSLDATA}|awk -F': ' '{print $2}'|sed -e 's/"/\\`/g;')
+      CERT_ISSUER=$(grep "issuer:" ${SSLDATA}|awk -F': ' '{print $2}'|sed -e 's/=/=\`/g; s/;/\`;/g; s/$/\`/g;')
+      CERT_CNAME=$(grep "subject:" ${SSLDATA}|awk -F': ' '{print $2}'|sed -e 's/=/=\`/g; s/;/\`;/g; s/$/\`/g;')
+      CERT_ALTCNAME=$(grep "subjectAltName:" ${SSLDATA}|awk -F': ' '{print $2}'|sed -e 's/"/\`/g;')
       echo $(date +'%F'):${keyname} >> "/tmp/ssl.log" 
       echo "checking ssl for ${fqdn}"
 
@@ -65,11 +64,11 @@ if [[ ${check_ssl} -lt 1 ]]; then
           check_alert=$(grep -c "${keyname}:${day}" ${log_dir}/sslcert.log)
           if [[ ${check_alert} -lt 1 ]]; then
             SLACK_TITLE=":large_orange_circle: Warning | SSL Cert is expiring in ${remain_days} days for ${fqdn}."
-            SLACK_MSG="*Domain* : \`${keyname} -> ${fqdn}\` \n *Expiring in * : \`${remain_days} days\` \n *Expired on* : \`${EXP_DATE}\` \n *Cert Issuer* : $(echo ${CERT_ISSUER}|sed -e 's/=/=\\`/g; s/;/\\`;/g; s/$/\\`/g;') \n *CNAME* : ${CERT_CNAME}  \n *AltName* : \${CERT_ALTCNAME}"
+            SLACK_MSG="*Domain* : \`${keyname} -> ${fqdn}\` \n *Expiring in * : \`${remain_days} days\` \n *Expired on* : \`${EXP_DATE}\` \n *Cert Issuer* : ${CERT_ISSUER} \n *CNAME* : ${CERT_CNAME}  \n *AltName* : ${CERT_ALTCNAME}"
             mslack chat send --title "${SLACK_TITLE}" --text "${SLACK_MSG}" --channel "${SLACK_CHANNEL}" --color danger #--filter '.ts + "\n" + .channel'
             echo ${today}, ${keyname}:${day} >> "${log_dir}/sslcert.log"        
             # By default we keep 200 last log entries.  Feel free to modify this to meet your needs.
-            echo "$(tail -${keepLogLines} ${log_dir}/sslcert.log)" > "${log_dir}/sslcert.log"
+            echo "$(tail -50 ${log_dir}/sslcert.log)" > "${log_dir}/sslcert.log"
             echo ${today} - ${keyname} - SSL expiring in ${remain_days} days 
           fi 
         fi 
