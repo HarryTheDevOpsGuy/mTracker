@@ -135,7 +135,7 @@ mkdir -p ${log_dir}
               echo "$(tail -${keepLogLines} ${log_dir}/${key}_report.log)" > "${log_dir}/${key}_report.log"
 
         elif [[ ${lastResult} == ${result} && ${result} == 'failed' ]];then  
-          echo "Next alert $(( REPEAT_ALERT - minDiff ))minutes: ${dateTime} - ${key}->${lastResult}->${result}->${response}->${respontime} Seconds - [${minDiff}:${REPEAT_ALERT}]"
+          echo "Next alert in $(( REPEAT_ALERT - minDiff )) minutes: ${dateTime} - ${key}->${lastResult}->${result}->${response}->${respontime} Seconds - [${minDiff}:${REPEAT_ALERT}]"
         fi
 
         ################# Slack Notification Rules.##############
