@@ -60,7 +60,7 @@ if [[ ${check_ssl} -lt 1 ]]; then
       today="$(date -d 'now' +'%F %T')"
       remain_days=$(datediff "${EXP_DATE}" "${today}" "days")
       for day in ${ALERT_DAY[@]}; do
-        if [[ ${remain_days} -lt ${day} ]];then 
+        if [[ ${remain_days} -le ${day} ]];then 
           check_alert=$(grep -c "${keyname}:${day}" ${log_dir}/sslcert.log)
           if [[ ${check_alert} -lt 1 ]]; then
             SLACK_TITLE=":large_orange_circle: Warning | SSL Cert is expiring in ${remain_days} days for ${fqdn}."
