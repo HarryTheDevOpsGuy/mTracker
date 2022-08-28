@@ -99,7 +99,7 @@ mkdir -p ${log_dir}
         echo "${key} -> ${result} -> ${response} | Update condition: ${minDiff} -gt ${REPEAT_ALERT} ||:${lastResult} -ne ${result}:"
 
         if [[ ${minDiff} -gt ${REPEAT_ALERT} || ${lastResult} -ne ${result} ]]; then
-          if [[ ! -z ${result} & ! -z ${lastResult} ]]; then
+          if [[ ! -z ${result} && ! -z ${lastResult} ]]; then
               if [[ ${lastResult} -eq 'failed' && ${minDiff} > ${REPEAT_ALERT} && ${result} -eq 'failed' ]]; then
                   SLACK_TITLE="Critical | ${url} is Still not accessible for ${minDiff} minutes"
                   SLACK_MSG="*URL* : \`${key} -> ${url}\` \n *Status* : \`${url} is not accessible\` \n *Response Time* : \`${respontime} Seconds\` \n *Alert Severity* : \`Critical\` \n *Status Code* : \`${response}\`  \n *Down at* : \`${olddate}\`. \n *Down since* :  \`${minDiff}\` minutes."
