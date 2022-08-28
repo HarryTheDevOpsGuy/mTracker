@@ -98,7 +98,7 @@ mkdir -p ${log_dir}
         minDiff=$(datediff "${dateTime}" "${olddate}" "minutes")
         #echo "${key} -> ${result} -> ${response} | Update condition: ${minDiff} -gt ${REPEAT_ALERT} ||:${lastResult} -ne ${result}:"
 
-        if [[ ${minDiff} -gt ${REPEAT_ALERT} || ${lastResult} -ne ${result} ]]; then
+        if [[ ${minDiff} -ge ${REPEAT_ALERT} || ${lastResult} -ne ${result} ]]; then
             if [[ ! -z ${result} && ! -z ${lastResult} ]]; then
                 if [[ ("${result}" == "failed" && "${lastResult}" == "${result}") && (${minDiff} -ge ${REPEAT_ALERT}) ]]; then
                     SLACK_TITLE=":red_circle: Critical | ${url} is Still not accessible for ${minDiff} minutes"
