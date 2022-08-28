@@ -105,7 +105,7 @@ mkdir -p ${log_dir}
                   SLACK_MSG="*URL* : \`${key} -> ${url}\` \n *Status* : \`${url} is not accessible\` \n *Response Time* : \`${respontime} Seconds\` \n *Alert Severity* : \`Critical\` \n *Status Code* : \`${response}\`  \n *Down at* : \`${olddate}\`. \n *Down since* :  \`${minDiff}\` minutes."
                   COLOR='danger'
                   #echo "CHECK ::: ${result} == failed and ${lastResult} == ${result} and ${minDiff} ge ${REPEAT_ALERT}"
-                  echo "RepeatAlert: ${dateTime} - ${key}->${lastResult}->${result}->${response}->${respontime} Seconds  -  [${minDiff}>${REPEAT_ALERT}]"
+                  echo "RepeatAlert: ${dateTime} - ${key}->${lastResult}->${result}->${response}->${respontime} Seconds  -  [${minDiff} min > ${REPEAT_ALERT} min]"
                   mslack chat send --title "${SLACK_TITLE}" --text "${SLACK_MSG}" --channel "${SLACK_CHANNEL}" --color ${COLOR} --filter '.attachments[0].title' #> /dev/null 2>&1
               elif [[ ${result} -eq 'failed' && ${lastResult} != ${result} ]]; then
                   SLACK_TITLE="Critical | ${url} is not accessible - ${response}"
@@ -128,7 +128,6 @@ mkdir -p ${log_dir}
               fi
 
             else 
-            echo "[result->${result}:lastResult->${lastResult} is empty] - ${key}->${response}->${respontime} Seconds"
             echo "VariableEmpty: ${dateTime} - ${key}->${lastResult:-lastResultEmpty}->${result:-resultEmpty}->${response}->${respontime} Seconds - [${minDiff}:${REPEAT_ALERT}]"
           fi 
             echo $dateTime, $result >> "${log_dir}/${key}_report.log"        
