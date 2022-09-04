@@ -1,0 +1,77 @@
+# mCloud-Uptime : Monitor Website uptime and SSL Certificate Status.
+
+global:
+  uid: uptime
+  timeout: 2
+  repeat_interval: 30
+  keeploglines: 200
+
+# Notification Channels
+notifications:
+   - id: slackid
+     type: slack
+     token: "{{ mcloud_slack_token }}"
+     channel: '#mcloud-alerts'
+
+   - id: mCloudUptime
+     type: telegram
+     bottoken: "{{ mcloud_telegram_token }}"
+     groupid: '-1001225113709'
+     groupname: 'mCloud-Uptime'
+
+   - id: email
+     type: sendgrid
+     sender: yourSendGridEmail@gmail.com
+     token: "{{ mcloud_sendgrid_apikey }}"
+     email:
+       - ToEmail@gmail.com
+
+# to Monitor SSL certificate only.
+certificate:
+    - id: commonssl
+      name: SSLCert Monitor
+      notification:
+        - slackid
+        - mCloudUptime
+      domains:
+         - https://facebook.com
+         - https://ci-mcloud.herokuapp.com
+         - https://www.youtube.com/about
+         - https://www.findbestopensource.com/home
+         - https://harrythedevopsguy.github.io/mwatcher-403.html
+      reminder: 50
+
+# To monitor website uptime status and SSL certificate.
+probes:
+  - id: CommonProbes
+    name: MonitorWebsites
+    description: Monitor multiple website
+    publish: 'true'
+    timeout: 5 # in Seconds
+    repeat_interval: 60 # in minutes.
+    notification:
+      - slackid
+      - mCloudUptime
+    urls:
+      # Replace/add with your domains.
+      - 'https://www.mydailytutorials.com/'
+      - 'https://adamtheautomator.com'
+      - https://phoenixnap.com/
+      - https://www.linuxhelp.com/
+      - https://ci-mcloud.herokuapp.com/
+      - https://github.com/
+      - https://www.middlewareinventory.com/
+      - http://worldclockapi.com/api/json/utc/now
+      - https://www.flipkart.com/
+
+  - id: MainProbes
+    name: MyWebsite Monitoring
+    description: Monitor multiple website2
+    publish: 'false'
+    repeate_interval: 60
+    timeout: 5
+    notification:
+      - slackid
+    urls:
+      - http://worldclockapi.com/api/json/utc/now
+      - https://www.flipkart.com/
