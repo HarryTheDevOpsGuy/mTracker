@@ -1,5 +1,5 @@
 # mTracker Version
- **Version**        : v0.4.6 <br>
+ **Version**        : v0.4.7 <br>
  **Release Date**   : 17-Sep-22 <br>
 
 #### What is mTracker ?
