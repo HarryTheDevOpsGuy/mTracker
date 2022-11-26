@@ -1,8 +1,8 @@
 **Join Us**: [![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)](https://harrythedevopsguy.slack.com)  [![Telegram](https://img.shields.io/badge/Telegram-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://t.me/TheDevOpsProfessionals)  [![WhatsApp](https://img.shields.io/badge/WhatsApp-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://chat.whatsapp.com/Go0FgwQs9GtKp6js2l6RTG)
 
 # mTracker Version
- **Version**        : v0.4.8 <br>
- **Release Date**   : 17-Sep-22 <br>
+ **Version**        : v0.4.9 <br>
+ **Release Date**   : 26-Nov-22 <br>
 
 #### What is mTracker ?
 mTracker is small script to track user Activities on linux system. We can monitor all user what commands they are executing on linux system.
