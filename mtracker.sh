@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# /etc/profile.d/mtracker.sh
+# /etc/profile.d/mTracker.sh
 # export SLACK_CLI_TOKEN='xoxb-xxxxxxxxxxx-xxxxxxxxx-xxxxxxxxxxxxxxxxx'
 # export SLACK_CHANNEL="#devops"
 
